@@ -3,4 +3,5 @@ type ExampleEntity @entity {
   count: BigInt!
   account: Bytes! # address
   heroId: BigInt! # uint256
+  awardDAO: BigInt! # uint256
 }
