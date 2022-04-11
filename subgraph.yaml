@@ -1,0 +1,29 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Launcher
+    network: bsc
+    source:
+      address: "0x6f2bbdb5b7a6d330ce485b74960bc594e7863023"
+      abi: Launcher
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AIRDROPEvent
+        - DaoEvent
+        - OwnershipTransferred
+      abis:
+        - name: Launcher
+          file: ./abis/Launcher.json
+      eventHandlers:
+        - event: AIRDROPEvent(address,uint256)
+          handler: handleAIRDROPEvent
+        - event: DaoEvent(address,uint256)
+          handler: handleDaoEvent
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts
