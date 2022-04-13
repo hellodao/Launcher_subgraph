@@ -19,6 +19,7 @@ export class ExampleEntity extends Entity {
     this.set("count", Value.fromBigInt(BigInt.zero()));
     this.set("account", Value.fromBytes(Bytes.empty()));
     this.set("heroId", Value.fromBigInt(BigInt.zero()));
+    this.set("awardDAO", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -71,5 +72,14 @@ export class ExampleEntity extends Entity {
 
   set heroId(value: BigInt) {
     this.set("heroId", Value.fromBigInt(value));
+  }
+
+  get awardDAO(): BigInt {
+    let value = this.get("awardDAO");
+    return value!.toBigInt();
+  }
+
+  set awardDAO(value: BigInt) {
+    this.set("awardDAO", Value.fromBigInt(value));
   }
 }

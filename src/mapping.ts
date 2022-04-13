@@ -64,6 +64,27 @@ export function handleAIRDROPEvent(event: AIRDROPEvent): void {
   // - contract.getAwardDAO(...)
 }
 
-export function handleDaoEvent(event: DaoEvent): void {}
+export function handleDaoEvent(event: DaoEvent): void {
+  // Entities can be loaded from the store using a string ID; this ID
+  // needs to be unique across all entities of the same type
+  let entity = ExampleEntity.load(event.transaction.from.toHex())
 
-export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
+  // Entities only exist after they have been saved to the store;
+  // `null` checks allow to create entities on demand
+  if (!entity) {
+    entity = new ExampleEntity(event.transaction.from.toHex())
+
+    // Entity fields can be set using simple assignments
+    entity.awardDAO = BigInt.fromI32(0)
+  }
+
+  // Entity fields can be set based on event parameters
+  entity.account = event.params.account
+  entity.awardDAO = event.params.awardDAO
+
+  // Entities can be written to the store with `.save()`
+  entity.save()
+
+}
+
+export function handleOwnershipTransferred(event: OwnershipTransferred): void { }
